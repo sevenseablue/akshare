@@ -7,6 +7,8 @@ Desc: 东方财富网-行情首页-上证 A 股-每日行情
 import requests
 import pandas as pd
 
+import akshare.utils.fools
+
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
@@ -211,6 +213,12 @@ def _code_id_map() -> dict:
     :return: 股票和市场代码
     :rtype: dict
     """
+    import os, pickle
+    file = "code_id_dict.pickle"
+    if os.path.exists(file) and akshare.utils.fools.is_today_change(file):
+        with open(file, 'rb') as f:
+            code_id_dict = pickle.load(f)
+            return code_id_dict
     url = "http://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
@@ -267,6 +275,8 @@ def _code_id_map() -> dict:
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
+    with open(file, 'wb') as f:
+        pickle.dump(code_id_dict, f)
     return code_id_dict
 
 
