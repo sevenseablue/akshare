@@ -1664,9 +1664,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.40 add: add fund_scale_change_em interface
 1.2.41 add: add fund_hold_structure_em interface
 1.2.42 fix: fix fund_manager interface
+1.2.43 fix: fix get_czce_daily interface
+1.2.44 add: add futures_index_cscidx interface
+1.2.45 fix: fix stock_info_a_code_name interface
 """
 
-__version__ = "1.2.42"
+__version__ = "1.2.45"
 __author__ = "Albert King"
 
 import sys
@@ -2619,9 +2622,9 @@ from akshare.event.covid import (
 )
 
 """
-futures_cfmmc
+futures_cscidx
 """
-from akshare.futures.futures_cfmmc import futures_index_cscidx_map, futures_index_cscidx
+from akshare.futures.futures_cscidx import futures_index_cscidx
 
 """
 futures_em_spot_stock
